@@ -1,2 +1,2 @@
 # basic_rective_security_execersize
-This si just a basic exercise for
+This is just a basic exercise for event driven application with jwt security, made with Spring Webflux, RabbitMQ and Postgres
