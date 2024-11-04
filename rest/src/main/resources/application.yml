@@ -1,0 +1,53 @@
+server:
+  port: 8080
+spring:
+  webflux:
+    session:
+      timeout: 30m
+  application:
+    name: consumer
+  rabbitmq:
+    host: localhost
+    port: 5673
+    username: user
+    password: user
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: America/Bogota
+
+timezone:
+  zone: America/Bogota
+springdoc:
+  swagger-ui:
+    path: /public/swagger-ui.html
+    enabled: true
+events:
+  exchange: x.lecture
+queues:
+  lecture: q.lecture
+routing_key:
+  events: secret
+config:
+  parameters:
+    minimum_age: 15
+    minimum_station_name_length: 5
+    minimum_user_name_length: 3
+    fixed_user_pin_length: 4
+    hours_to_delete_user_confirmation_token: 4
+jwt:
+  secret: secret
+  expiration: 30 #in minutes
+cors:
+  domain: localhost
+  allowed-origins:
+    - "*"
+  allowed-methods:
+    - GET
+    - POST
+    - PUT
+    - DELETE
+  allowed-headers:
+    - authorization
+    - content-type
+    - origin
+  allowed-credentials: false
