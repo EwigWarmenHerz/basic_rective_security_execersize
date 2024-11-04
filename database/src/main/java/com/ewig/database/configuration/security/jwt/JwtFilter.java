@@ -1,4 +1,4 @@
-package com.ewig.rest.configuration.security.jwt;
+package com.ewig.database.configuration.security.jwt;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
@@ -18,7 +18,7 @@ public class JwtFilter implements WebFilter {
     public Mono<Void> filter(ServerWebExchange exchange, WebFilterChain chain) {
         var request = exchange.getRequest();
         var path = request.getPath().value();
-        if(path.contains("public")) return chain.filter(exchange);
+        if(path.contains("free_access") || path.contains("swagger") || path.contains("api-docs")) return chain.filter(exchange);
         var auth = request.getHeaders().getFirst(HttpHeaders.AUTHORIZATION);
         return switch (auth){
             case String a when !a.startsWith("Bearer ") -> Mono.error(new Throwable("invalid auth"));

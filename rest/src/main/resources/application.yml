@@ -21,12 +21,12 @@ springdoc:
   swagger-ui:
     path: /public/swagger-ui.html
     enabled: true
-events:
-  exchange: x.lecture
+exchange:
+  lecture: x.lecture
 queues:
   lecture: q.lecture
 routing_key:
-  events: secret
+  lecture: lecture
 config:
   parameters:
     minimum_age: 15
