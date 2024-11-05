@@ -12,9 +12,9 @@ import java.util.Optional;
 @Component
 public class MessageSender {
 
-    @Value("exchange.lecture")
+    @Value("${exchange.lecture}")
     private String exchange;
-    @Value("routing_key.lecture")
+    @Value("${routing_key.lecture}")
     private String lectureRoutingKey;
 
     private final RabbitTemplate rabbitTemplate;
@@ -25,6 +25,6 @@ public class MessageSender {
     }
 
     public Mono<String> sendMessage(String message) {
-        return Mono.just(Objects.requireNonNull(rabbitTemplate.convertSendAndReceive(exchange, lectureRoutingKey, message)).toString());
+        return Mono.just(rabbitTemplate.convertSendAndReceive(exchange, lectureRoutingKey, message).toString());
     }
 }

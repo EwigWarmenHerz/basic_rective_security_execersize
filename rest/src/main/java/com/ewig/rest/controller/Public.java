@@ -6,10 +6,7 @@ import com.ewig.rest.Entity.MessageType;
 import com.ewig.rest.configuration.rabbit.MessageSender;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 
 @RestController
@@ -29,10 +26,11 @@ public class Public {
         return Mono.just("world");
     }
 
-    @GetMapping("/login")
+    @PostMapping("/login")
     public Mono<String> login(@RequestBody LoginDto loginDto) throws JsonProcessingException {
         var message = objectMapper.writeValueAsString(loginDto);
         var json = objectMapper.writeValueAsString(new MessageDto(MessageType.LOGIN,message));
+
         return messageSender.sendMessage(json);
     }
 }

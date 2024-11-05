@@ -24,6 +24,7 @@ public class JwtProvider {
     private long expiration;
 
     public String generateToken(String username, List<String> userRole){
+        System.out.println(secret);
         var now = new Date();
         var expirationDate = new Date(now.getTime() + expiration * 60 * 1000);
         var key = getKey(secret);

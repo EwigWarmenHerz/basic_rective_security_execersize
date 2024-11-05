@@ -35,7 +35,7 @@ config:
     fixed_user_pin_length: 4
     hours_to_delete_user_confirmation_token: 4
 jwt:
-  secret: secret
+  secret: 5846N5QiFhER0b8mGvffheyPoueFjPtRKDZNDDHShSegBIetprU6kkjhg
   expiration: 30 #in minutes
 cors:
   domain: localhost

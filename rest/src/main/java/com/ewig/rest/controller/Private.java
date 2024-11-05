@@ -7,6 +7,7 @@ import com.ewig.rest.configuration.rabbit.MessageSender;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -29,17 +30,21 @@ public class Private {
     }
 
     @GetMapping("/get_user")
+    @PreAuthorize("hasAuthority('USER')")
     public Mono<UserDto>getUser(@RequestParam long id) throws JsonProcessingException {
         var message = new MessageDto(MessageType.SINGLE_USER,String.valueOf(id));
         var json = objectMapper.writeValueAsString(message);
+        System.out.println(json);
         return messageSender.sendMessage(json)
                 .map(this::parseSingleUserResponse);
 
     }
 
     @GetMapping("/get_all_user")
-    public Mono<List<UserDto>> getAllUsers(@RequestParam long id) throws JsonProcessingException {
-        var json = objectMapper.writeValueAsString(id);
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public Mono<List<UserDto>> getAllUsers() throws JsonProcessingException {
+
+        var json = objectMapper.writeValueAsString(new MessageDto(MessageType.ALL_USER,""));
         return messageSender.sendMessage(json)
                 .map(this::parseListUserDto);
 
